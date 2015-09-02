@@ -1,0 +1,83 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+    <div ng-include="'components/header/cabecera.html'"></div>
+</header>
+<div class="col-md-12">
+
+    <div class="page-header">
+                </div>
+                <div class="jumbotron" ng-controller="SearchCtrl as searchitem">
+
+                    <div class="alert alert-success" ng-show="anyadido">
+                        <p>Añadido correctamente!!!</p>
+                    </div>
+
+                    <div ng-controller="SearchCtrl as searchTool">
+                        <form ng-show="!busquedaActiva">
+                            <input ng-model="searchWord">
+                            <button ng-click=searchClick()>Buscar!</button>
+                        </form>
+
+
+                        <div ng-show="busquedaActiva">
+                            <div class="load-bar">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+
+                            </div>
+                        </div>
+
+
+                        <table ng-table="">
+                            <thead>
+                                <tr>
+                                    <td>Titulo</td>
+                                    <td>Tamaño</td>
+                                    <td>Seeds</td>
+                                    <td>Leechs</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="item in searchList.list">
+                                    <h3 class="text-center alert alert-info">Total items:  {{searchList.list.length}}  </h3>
+                                    <td title="{{item.title}}">{{item.title }}</td>
+                                  <!--  <td title="{{item.title | specialCharacters}}">{{item.title | specialCharacters | shortTitle}}</td>-->
+                                    <td>{{item.size}}</td>
+                                    <td>{{item.seeds}}</td>
+                                    <td>{{item.leechs}}</td>
+                                    <td>
+                                        <button ng-click="AddTorrent(item.title, item.torrentLink, item.link)">+</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+                    </div>
+
+                    <!-- Bootstrap core JavaScript
+    ================================================== -->
+                    <!-- Placed at the end of the document so the pages load faster -->
+                    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+              <!--      <script src="https://code.jquery.com/jquery.js"></script>
+
+                    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+                    <link rel="stylesheet" href="/stylesheets/lodingBar.css">
+-->
+                    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+                    <link rel="stylesheet" href="/stylesheets/lodingBar.css">
+<!--
+                    <script type="text/javascript" src="/bower_components/ng-table/dist/ng-table.js"></script>
+
+                    <link rel="stylesheet" href="/bower_components/ng-table/dist/ng-table.css">
+-->
+
+
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>
