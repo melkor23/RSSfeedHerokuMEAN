@@ -6,78 +6,73 @@
 <div class="col-md-12">
 
     <div class="page-header">
+    </div>
+    <div class="jumbotron" ng-controller="SearchCtrl as searchitem">
+
+        <div class="alert alert-success" ng-show="anyadido">
+            <p>Añadido correctamente!!!</p>
+        </div>
+        <div ng-controller="SearchCtrl as searchTool">
+            <div class="text-center">
+                <button class="glyphicon glyphicon-magnet btn btn-primary text-right" ng-click="open('aa')"> Añadir Magnet</button>
+                <form ng-show="!busquedaActiva">
+                    <input ng-model="searchWord">
+                    <button ng-click=searchClick()>Buscar!</button>
+                </form>
+
+            </div>
+            </ul>
+            <div ng-show="busquedaActiva">
+                <div class="load-bar">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+
                 </div>
-                <div class="jumbotron" ng-controller="SearchCtrl as searchitem">
-
-                    <div class="alert alert-success" ng-show="anyadido">
-                        <p>Añadido correctamente!!!</p>
-                    </div>
-
-                    <div ng-controller="SearchCtrl as searchTool">
-                        <form ng-show="!busquedaActiva">
-                            <input ng-model="searchWord">
-                            <button ng-click=searchClick()>Buscar!</button>
-                        </form>
+            </div>
 
 
-                        <div ng-show="busquedaActiva">
-                            <div class="load-bar">
-                                <div class="bar"></div>
-                                <div class="bar"></div>
-                                <div class="bar"></div>
+            <table ng-table="" class="table">
+                <thead>
+                    <tr>
+                        <td>Titulo</td>
+                        <td>Tamaño</td>
+                        <td>Seeds</td>
+                        <td>Leechs</td>
+                    </tr>
+                </thead>
 
-                            </div>
-                        </div>
-
-
-                        <table ng-table="">
-                            <thead>
-                                <tr>
-                                    <td>Titulo</td>
-                                    <td>Tamaño</td>
-                                    <td>Seeds</td>
-                                    <td>Leechs</td>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr ng-repeat="item in searchList.list">
-                                    <h3 class="text-center alert alert-info">Total items:  {{searchList.list.length}}  </h3>
-                                    <td title="{{item.title}}">{{item.title }}</td>
-                                  <!--  <td title="{{item.title | specialCharacters}}">{{item.title | specialCharacters | shortTitle}}</td>-->
-                                    <td>{{item.size}}</td>
-                                    <td>{{item.seeds}}</td>
-                                    <td>{{item.leechs}}</td>
-                                    <td>
-                                        <button ng-click="AddTorrent(item.title, item.torrentLink, item.link)">+</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-
-
-
-                    </div>
-
-                    <!-- Bootstrap core JavaScript
-    ================================================== -->
-                    <!-- Placed at the end of the document so the pages load faster -->
-                    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-              <!--      <script src="https://code.jquery.com/jquery.js"></script>
-
-                    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-                    <link rel="stylesheet" href="/stylesheets/lodingBar.css">
--->
-                    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-                    <link rel="stylesheet" href="/stylesheets/lodingBar.css">
-<!--
-                    <script type="text/javascript" src="/bower_components/ng-table/dist/ng-table.js"></script>
-
-                    <link rel="stylesheet" href="/bower_components/ng-table/dist/ng-table.css">
--->
-
-
-</div>
-
-<div ng-include="'components/footer/footer.html'"></div>
+                <tbody>
+                    <tr ng-repeat="item in searchList.list">
+                        <h3 class="text-center alert alert-info">Total items:  {{totalItems}}  </h3>
+                        <td title="{{item.title}}">{{item.title | specialCharacters}}</td>
+                        <!--  <td title="{{item.title | specialCharacters}}">{{item.title | specialCharacters | shortTitle}}</td>-->
+                        <td>{{item.size | formatBytes}}</td>
+                        <td>{{item.seeds}}</td>
+                        <td>{{item.leechs}}</td>
+                        <td>
+                            <button ng-click="AddTorrent(item.title, item.torrentLink, item.link)">+</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-click="pageChanged(bigCurrentPage)"></pagination>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="ModalAddMagnetCtrl">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+                <input class="form-control" ng-model="seleccionActual.title"> </input>
+                <inp ut id="checkSlave" type="checkbox" ng-checked="seleccionActual.fixed" aria-label="Fixed">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="ok()">Añadir</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+    <div ng-include="'components/footer/footer.html'"></div>

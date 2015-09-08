@@ -4,25 +4,31 @@
     <div ng-include="'components/header/cabecera.html'"></div>
 </header>
 
-<div class="container"  ng-controller="FeedCtrl">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-        {{message}}
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in feedlist">
-        <li><a href="#" tooltip="{{thing.fixed}}">{{thing.title}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>
-      </ul>
+<div class="container" ng-controller="FeedCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Features:</h1> {{message}}
+            <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in feedlist" ng-click="open(thing)">
+                <li><a href="#" tooltip="{{thing.fixed}}">{{thing.title}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
-  <form class="thing-form">
-    <label>Syncs in realtime across clients</label>
-    <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
-      </span>
-    </p>
-  </form>
 </div>
 
+<div ng-controller="ModalDemoCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+            <img class="img-responsive center-block" src="{{seleccionActual.description}}">
+            <input class="form-control" ng-model="seleccionActual.title"> </input>
+            <inp ut id="checkSlave" type="checkbox" ng-checked="seleccionActual.fixed" aria-label="Fixed">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
 <div ng-include="'components/footer/footer.html'"></div>

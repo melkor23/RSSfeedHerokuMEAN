@@ -137,25 +137,17 @@ exports.destroy = function (req, res) {
     Feed.findById(req.params.id, function (err, feed) {
 
         if (err) {
-
             return handleError(res, err);
-
         }
 
         if (!feed) {
-
             return res.status(404).send('Not Found');
-
         }
 
         feed.remove(function (err) {
-
             if (err) {
-
                 return handleError(res, err);
-
             }
-
             return res.status(204).send('No Content');
 
         });
