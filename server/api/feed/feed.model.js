@@ -23,11 +23,12 @@ var FeedSchema = new Schema({
     pubDate: Date,
     
     //torrent de kat torrent
-    fixed:Boolean
+    fixed:Boolean,
     
+    quantity:Number,
     
+    titlefind: [String]
 });
-
 
 
 module.exports = mongoose.model('Feed', FeedSchema);

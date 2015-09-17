@@ -7,7 +7,8 @@ angular.module('proyecto1App', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-'infinite-scroll'
+'infinite-scroll',
+    'cgNotify'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

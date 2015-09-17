@@ -38,12 +38,11 @@ var job = new CronJob({
 
         actualizaFeed();
 
-        console.log('CRON Time!!');
+        console.log(new Date()+' - Actualizando Feed con filtros!!');
 
     },
 
     start: true,
-
     timeZone: "America/Los_Angeles"
 
 });

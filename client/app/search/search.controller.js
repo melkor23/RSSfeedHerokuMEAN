@@ -1,14 +1,13 @@
 'use strict';
 
 angular.module('proyecto1App')
-    .controller('SearchCtrl', function ($scope, $http, $timeout, $sce, $modal, $log) {
+    .controller('SearchCtrl', function ($scope, $http, $timeout, $sce, alertasService, $modal, $log, notify) {
         $scope.searchWord = '';
         $scope.searchList = '';
         $scope.resultCount = 0;
 
         $scope.anyadido = false;
         $scope.busquedaActiva = false;
-
 
         $scope.searchClick = function () {
             //alert('Palabra buscada: ' + $scope.searchWord);
@@ -24,46 +23,38 @@ angular.module('proyecto1App')
                 $scope.busquedaActiva = false;
                 $scope.totalPaginas = $scope.searchList.total_results / $scope.searchList.list.length;
                 //console.log('items por pag:' + $scope.searchList.list.length + ' Total items:' + $scope.searchList.total_results + " numero de paginas:" + $scope.totalPaginas);
+            });
+            //paginas
+            $scope.totalItems = $scope.searchList.total_results;
+            $scope.currentPage = $scope.searchList.list.length;
 
-                //paginas
-                $scope.totalItems = $scope.searchList.total_results;
-                $scope.currentPage = $scope.searchList.list.length;
+            $scope.maxSize = 10;
+            $scope.bigTotalItems = 175;
+            $scope.bigCurrentPage = 1;
 
-                $scope.maxSize = 10;
-                $scope.bigTotalItems = 175;
-                $scope.bigCurrentPage = 1;
+        };
 
-            }).error(function () {
+
+        $scope.setPage = function (pageNo) {
+            $scope.currentPage = pageNo;
+            //console.log('Pagina numero!' + page);
+        };
+        $scope.pageChanged = function (page) {
+            $scope.searchList = '';
+            console.log('Pagina numero!' + page);
+
+            $scope.busquedaActiva = true;
+
+            var req = {
+                method: 'GET',
+                url: '/api/searchs?search=' + $scope.searchWord + '&page=' + page
+            };
+
+            $http(req).success(function (data) {
+                console.log('Actualizado!!' + req.url);
+                $scope.searchList = JSON.parse(data);
                 $scope.busquedaActiva = false;
             });
-
-
-            $scope.setPage = function (pageNo) {
-                $scope.currentPage = pageNo;
-                //console.log('Pagina numero!' + page);
-            };
-
-            $scope.pageChanged = function (page) {
-                $scope.searchList = '';
-                console.log('Pagina numero!' + page);
-
-                $scope.busquedaActiva = true;
-
-                var req = {
-                    method: 'GET',
-                    url: '/api/searchs?search=' + $scope.searchWord + '&page=' + page
-                };
-
-                $http(req).success(function (data) {
-                    console.log('Actualizado!!' + req.url);
-                    $scope.searchList = JSON.parse(data);
-                    $scope.busquedaActiva = false;
-                });
-
-            };
-
-
-
 
         };
 
@@ -76,7 +67,7 @@ angular.module('proyecto1App')
                 controller: 'ModalAddMagnetCtrl',
                 resolve: {
                     items: function () {
-                        return thing;
+                        return $scope.searchWord;
                     }
                 }
             });
@@ -87,11 +78,9 @@ angular.module('proyecto1App')
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
-
         $scope.SkipValidation = function () {
             return $sce.trustAsHtml($scope.searchList);
         };
-
         $scope.AddTorrent = function (titulo, link, htmlLink) {
             $scope.anyadido = true;
 
@@ -115,12 +104,29 @@ angular.module('proyecto1App')
             };
 
             $http(req).success(function (data) {
-                console.log(data);
+                 notify({
+                    message: nuevoObjeto.title+' añadido correctamente!!!!',
+                    classes: 'alert-success'
+                });
+                /*$scope.alerts = alertasService.addAlert('Añadido!', 'success');*/
+                /*console.log(data);*/
             });
         };
- }).controller('ModalAddMagnetCtrl', function ($scope, $http, $modalInstance, items) {
 
+
+
+        $scope.alerts = [];
+        $scope.closeAlert = function (index) {
+            $scope.alerts = alertasService.removeAlert(index);
+        };
+
+    }).controller('ModalAddMagnetCtrl', function ($scope, $http, $modalInstance, items) {
+
+        console.log('SearchoWord->' + items);
         $scope.seleccionActual = items;
+        $scope.UrlMagnet = '';
+        $scope.FilterName = '';
+
         //$scope.items = items;
         $scope.selected = {
             item: items
@@ -129,17 +135,20 @@ angular.module('proyecto1App')
 
         $scope.ok = function () {
             //$modalInstance.close($scope.selected.item);
-            $http.put('/api/feeds/' + items._id, items).success(function (data, status, headers) {
+            console.log($scope.UrlMagnet);
+            $http.post('/api/feeds/', {
+                link: $scope.UrlMagnet,
+                title: $scope.FilterName,
+                fixed: true,
+                description: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Magnet_Ales.jpg/150px-Magnet_Ales.jpg'
+            }).success(function (data, status, headers) {
                 console.log('Cambiado Correctamente!!!!!')
                 $modalInstance.dismiss('cancel');
-            }); // echo the result back
-            
+            });
         };
-
 
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
     });
-

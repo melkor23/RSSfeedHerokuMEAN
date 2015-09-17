@@ -7,19 +7,31 @@
 
     <div class="page-header">
     </div>
-    <div class="jumbotron" ng-controller="SearchCtrl as searchitem">
+    <div class="jumbotron" ng-controller="SearchCtrl as searchitem" style="padding-top:8px">
 
-        <div class="alert alert-success" ng-show="anyadido">
-            <p>Añadido correctamente!!!</p>
+        <div class="topAlert">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+        <div class="topAlert">
+            <div ng-repeat="show in rssAnyadidos">
+                <img title="{{show.title}}" src="{{show.description}}">
+            </div>
         </div>
         <div ng-controller="SearchCtrl as searchTool">
             <div class="text-center">
-                <button class="glyphicon glyphicon-magnet btn btn-primary text-right" ng-click="open('aa')"> Añadir Magnet</button>
-                <form ng-show="!busquedaActiva">
-                    <input ng-model="searchWord">
-                    <button ng-click=searchClick()>Buscar!</button>
-                </form>
 
+                <div class="form-group">
+                    <label>Añadir Magnet:</label>
+                    <br />
+                    <button class="glyphicon glyphicon-magnet btn btn-primary text-right form-control" ng-click="open('aa')" style="max-width:250px"></button>
+                </div>
+                <div class="form-group">
+                    <form ng-show="!busquedaActiva">
+                        <label>Buscar:</label>
+                        <input class="form-control" ng-model="searchWord">
+                        <button ng-click=searchClick()>Buscar!</button>
+                    </form>
+                </div>
             </div>
             </ul>
             <div ng-show="busquedaActiva">
@@ -27,10 +39,8 @@
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
-
                 </div>
             </div>
-
 
             <table ng-table="" class="table">
                 <thead>
@@ -41,7 +51,6 @@
                         <td>Leechs</td>
                     </tr>
                 </thead>
-
                 <tbody>
                     <tr ng-repeat="item in searchList.list">
                         <h3 class="text-center alert alert-info">Total items:  {{totalItems}}  </h3>
@@ -66,13 +75,19 @@
             <div class="modal-header">
             </div>
             <div class="modal-body">
-                <input class="form-control" ng-model="seleccionActual.title"> </input>
-                <inp ut id="checkSlave" type="checkbox" ng-checked="seleccionActual.fixed" aria-label="Fixed">
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-click="ok()">Añadir</button>
-                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-            </div>
+                <div class="form-group">
+                    <label>Nombre del Filtro:</label>
+                    <input class="form-control" ng-model="FilterName"> </input>
+                </div>
+
+                <div class="form-group">
+                    <label>Magnet url:</label>
+                    <input class="form-control" ng-model="UrlMagnet"> </input>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="ok()">Añadir</button>
+                    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                </div>
         </script>
-    </div>
-    <div ng-include="'components/footer/footer.html'"></div>
+        </div>
+        <div ng-include="'components/footer/footer.html'"></div>

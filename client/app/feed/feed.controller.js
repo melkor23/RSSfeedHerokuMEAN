@@ -21,7 +21,8 @@ angular.module('proyecto1App')
                 $scope.newThing = '';
             };*/
 
-        $scope.deleteThing = function (thing) {
+        $scope.deleteThing = function ($event,thing) {
+              
             console.log(thing._id);
             $http.delete('/api/feeds/' + thing._id);
         };

@@ -5,6 +5,7 @@
 var _ = require('lodash');
 
 var Search = require('./search.model');
+var unirest = require('unirest');
 
 
 
@@ -30,20 +31,16 @@ exports.index = function (req, res) {
         var searchResult = '';
 
         //var auxObject={search:searchWord, page:3};
-        console.log("http://kickass.to/json.php?q=" + searchWord + "&page=" + pageWord);
-        http.get("http://kat.cr/json.php?q=" + searchWord + "&page=" + pageWord, function (response) {
-            // Continuously update stream with data
-            var body = '';
-            response.on('data', function (d) {
-                body += d;
-            });
-            response.on('end', function () {
+        console.log("http://kat.cr/json.php?q=" + searchWord + "&page=" + pageWord);
+        unirest.get("http://kat.cr/json.php?q=" + searchWord + "&page=" + pageWord).end( function (response) {
+            
+            if (response.statusCode === 200) {
+                //console.log(response.body);
+                 return res.status(200).json(response.body);
+            }
+            else{console.log('statusCode'+response.statusCode);}
+            
 
-                console.log('Body-->' + pageWord);
-                // Data reception is done, do whatever with it!
-                //var parsed = JSON.parse(body);
-                return res.status(200).json(body);
-            });
         });
 
 
