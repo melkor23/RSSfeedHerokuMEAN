@@ -21,10 +21,10 @@ angular.module('proyecto1App')
                 $scope.newThing = '';
             };*/
 
-        $scope.deleteThing = function ($event,thing) {
+        $scope.deleteThing = function ($event) {
               
-            console.log(thing._id);
-            $http.delete('/api/feeds/' + thing._id);
+            console.log($event._id);
+            $http.delete('/api/feeds/' + $event._id);
         };
 
         $scope.$on('$destroy', function () {

@@ -31,7 +31,7 @@ exports.index = function (req, res) {
         var searchResult = '';
 
         //var auxObject={search:searchWord, page:3};
-        console.log("http://kat.cr/json.php?q=" + searchWord + "&page=" + pageWord);
+        //console.log("http://kat.cr/json.php?q=" + searchWord + "&page=" + pageWord);
         unirest.get("http://kat.cr/json.php?q=" + searchWord + "&page=" + pageWord).end( function (response) {
             
             if (response.statusCode === 200) {
@@ -67,10 +67,6 @@ exports.index = function (req, res) {
 // Get a single search
 
 exports.show = function (req, res) {
-
-
-
-
 
 
 

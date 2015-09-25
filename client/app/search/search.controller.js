@@ -82,6 +82,11 @@ angular.module('proyecto1App')
             return $sce.trustAsHtml($scope.searchList);
         };
         $scope.AddTorrent = function (titulo, link, htmlLink) {
+            
+            console.log('Titulo: '+titulo);
+            console.log('Link: '+link);
+            console.log('Html link: '+htmlLink);
+            
             $scope.anyadido = true;
 
             var nuevoObjeto = {
