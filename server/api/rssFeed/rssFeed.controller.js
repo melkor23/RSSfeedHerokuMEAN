@@ -7,44 +7,18 @@ var http = require('http');
 var xml2jsParser = require('xml2js');
 var unirest = require('unirest');
 var CronJob = require('cron').CronJob;
-var rss = require("rss");
-
-var feedXml = 'http://www.divxatope.com/feeds.xml';
-var urlInicial = 'http://www.divxatope.com/descargar/';
-var urlFinal = 'http://www.divxatope.com/torrent/';
 
 
-var results = new rss({
-    title: 'Feed RSS',
-    description: 'Feed local para divxatope',
-    feed_url: 'http://example.com/rss.xml',
-    site_url: 'http://example.com',
-    image_url: 'http://example.com/icon.png',
-    docs: 'http://example.com/rss/docs.html',
-    managingEditor: 'Melkor',
-    webMaster: 'Melkor',
-    copyright: 'Melkor',
-    language: 'es',
-    //categories: ['Category 1', 'Category 2', 'Category 3'],
-    pubDate: 'May 25, 2015 04:00:00 GMT',
-    ttl: '60',
-    custom_namespaces: {}
-});
+var config = require('../../config.js');
 
 
-var job = new CronJob({
-    cronTime: '*/900 * * * * *',
-    onTick: function () {
-        actualizaFeed();
-        actualizaFeedFijos();
-        var fechaActual = new Date();
-        console.log(fechaActual.getHours() + ':' + fechaActual.getMinutes() + ':' + fechaActual.getSeconds() + ' - Actualizacion filtros!');
+var feedXml = config.returnConfig().feedAll;
+var urlInicial = config.returnConfig().urlInicial;
+var urlFinal = config.returnConfig().urlFinal;
 
-    },
-    start: true,
-    timeZone: "America/Los_Angeles"
-});
+var results = config.returnConfig().rssFeed;
 
+var job =config.returnConfig().cronJobActualizacion;
 
 var title = '';
 var feedAct;
@@ -55,15 +29,12 @@ exports.actualizaPaginaFeed = function actulizaFeedsPagina() {
 
 
 function actualizaFeedFijos() {
-    //console.log('Fijos!');
     getAllFeedFiexed().then(function (allFeedFixed) {
-        //console.log('Fijos Length! ->' + allFeedFixed.length);
+        
         allFeedFixed.forEach(function (items) {
 
-
             var itemLink = items.link;
-
-            console.log('Item---------------->' + itemLink);
+            //console.log('Item--------------->' + itemLink);
 
             results.item({
                 title: items.title,
@@ -81,33 +52,16 @@ function actualizaFeedFijos() {
 }
 
 
-
-
 function actualizaFeed() {
 
-    results = new rss({
-        title: 'Feed RSS',
-        description: 'Feed local para divxatope',
-        feed_url: 'http://example.com/rss.xml',
-        site_url: 'http://example.com',
-        image_url: 'http://example.com/icon.png',
-        docs: 'http://example.com/rss/docs.html',
-        managingEditor: 'Melkor',
-        webMaster: 'Melkor',
-        copyright: 'Melkor',
-        language: 'es',
-        //categories: ['Category 1', 'Category 2', 'Category 3'],
-        pubDate: 'May 25, 2015 04:00:00 GMT',
-        ttl: '60',
-        custom_namespaces: {}
-    });
+    results =config.returnConfig().rssFeed; 
 
     //inicializamos la cuenta
     initContFeed();
 
 
     var cont = 0;
-    var aa = []
+    var aa = [];
 
     unirest.get(feedXml).end(function (response) {
 
@@ -121,19 +75,16 @@ function actualizaFeed() {
                                 var items = result.rss.channel[0].item;
                                 items.forEach(function (item) {
 
-                                        //console.log('allFeedDB-->' + allFeedDB.length);
-                                        //console.log(item.length);
                                         allFeedDB.forEach(function (itemDB) {
                                                 if (item.title[0].match(new RegExp(itemDB.title.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'ig'))) {
-                                                    //console.log(item.title[0] + ',' + itemDB);
 
                                                     //anyadimos un contador
                                                     if (itemDB.quantity == null) {
                                                         itemDB.quantity = 0;
                                                         itemDB.titlefind.splice(0, itemDB.titlefind.length);
-                                                        console.log('inicializado');
+                                                        //console.log('inicializado');
                                                     } else {
-                                                        console.log('añado: ' + item.title[0]);
+                                                        //console.log('añado: ' + item.title[0]);
                                                         itemDB.quantity++;
                                                         if (!(item.title[0] in itemDB.titlefind)) {
                                                                 itemDB.titlefind.push(item.title[0]);
@@ -170,8 +121,7 @@ function actualizaFeed() {
                 }
             });
 
-
-        console.log('aaa->' + aa);
+        //console.log('aaa->' + aa);
     }
 
 

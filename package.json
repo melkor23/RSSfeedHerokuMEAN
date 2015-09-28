@@ -18,7 +18,6 @@
     "express-jwt": "^3.0.0",
     "express-session": "~1.0.2",
     "jsonwebtoken": "^5.0.0",
-    "kickass-so": "^0.1.1",
     "lodash": "~2.4.1",
     "method-override": "~1.0.0",
     "mongoose": "~4.0.3",
