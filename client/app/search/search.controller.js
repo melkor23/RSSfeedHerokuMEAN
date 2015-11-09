@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('proyecto1App')
-    .controller('SearchCtrl', function ($scope, $http, $timeout, $sce, alertasService, $modal, $log, notify) {
+    .controller('SearchCtrl', function ($scope, $http, $timeout, $sce, $modal, $log, notify) {
         $scope.searchWord = '';
         $scope.searchList = '';
         $scope.resultCount = 0;
@@ -22,15 +22,16 @@ angular.module('proyecto1App')
                 $scope.searchList = JSON.parse(data);
                 $scope.busquedaActiva = false;
                 $scope.totalPaginas = $scope.searchList.total_results / $scope.searchList.list.length;
-                //console.log('items por pag:' + $scope.searchList.list.length + ' Total items:' + $scope.searchList.total_results + " numero de paginas:" + $scope.totalPaginas);
-            });
-            //paginas
-            $scope.totalItems = $scope.searchList.total_results;
-            $scope.currentPage = $scope.searchList.list.length;
+                console.log('items por pag:' + $scope.searchList.list.length + ' Total items:' + $scope.searchList.total_results + ' numero de paginas:' + $scope.totalPaginas);
 
-            $scope.maxSize = 10;
-            $scope.bigTotalItems = 175;
-            $scope.bigCurrentPage = 1;
+
+                //paginas con opciones
+                $scope.totalItems = $scope.searchList.total_results;
+                $scope.currentPage = $scope.searchList.list.length;
+                $scope.maxSize = 10;
+                $scope.bigTotalItems = 175;
+                $scope.bigCurrentPage = 1;
+            });
 
         };
 
@@ -59,7 +60,7 @@ angular.module('proyecto1App')
         };
 
 
-        $scope.open = function (thing) {
+        $scope.open = function (/*thing*/) {
             console.log('Abrir modal');
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
@@ -82,21 +83,20 @@ angular.module('proyecto1App')
             return $sce.trustAsHtml($scope.searchList);
         };
         $scope.AddTorrent = function (titulo, link, htmlLink) {
-            
-            console.log('Titulo: '+titulo);
-            console.log('Link: '+link);
-            console.log('Html link: '+htmlLink);
-            
+
+            console.log('Titulo: ' + titulo);
+            console.log('Link: ' + link);
+            console.log('Html link: ' + htmlLink);
+
             $scope.anyadido = true;
 
             var nuevoObjeto = {
-                "title": titulo,
-                "link": link,
-                "fixed": true,
-                "description": "",
-                "author": "Admin",
-                "pubDate": ""
-            }
+                'title': titulo,
+                'link': link,
+                'fixed': true,
+                'description': '',
+                'author': 'Admin',
+                'pubDate': ''            };
 
             console.log('ItemNuevo--->' + nuevoObjeto);
             var req = {
@@ -108,9 +108,9 @@ angular.module('proyecto1App')
                 }
             };
 
-            $http(req).success(function (data) {
-                 notify({
-                    message: nuevoObjeto.title+' añadido correctamente!!!!',
+            $http(req).success(function (/*data*/) {
+                notify({
+                    message: nuevoObjeto.title + ' añadido correctamente!!!!',
                     classes: 'alert-success'
                 });
                 /*$scope.alerts = alertasService.addAlert('Añadido!', 'success');*/
@@ -120,40 +120,12 @@ angular.module('proyecto1App')
 
 
 
-        $scope.alerts = [];
+       /* $scope.alerts = [];
         $scope.closeAlert = function (index) {
             $scope.alerts = alertasService.removeAlert(index);
-        };
+        };*/
 
-    }).controller('ModalAddMagnetCtrl', function ($scope, $http, $modalInstance, items) {
+    }).controller('ModalAddMagnetCtrl', function ($scope, $http/*,$modalInstance, items*/) {
 
-        console.log('SearchoWord->' + items);
-        $scope.seleccionActual = items;
-        $scope.UrlMagnet = '';
-        $scope.FilterName = '';
-
-        //$scope.items = items;
-        $scope.selected = {
-            item: items
-                //item: $scope.items[0]
-        };
-
-        $scope.ok = function () {
-            //$modalInstance.close($scope.selected.item);
-            console.log($scope.UrlMagnet);
-            $http.post('/api/feeds/', {
-                link: $scope.UrlMagnet,
-                title: $scope.FilterName,
-                fixed: true,
-                description: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Magnet_Ales.jpg/150px-Magnet_Ales.jpg'
-            }).success(function (data, status, headers) {
-                console.log('Cambiado Correctamente!!!!!')
-                $modalInstance.dismiss('cancel');
-            });
-        };
-
-
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
+      
     });

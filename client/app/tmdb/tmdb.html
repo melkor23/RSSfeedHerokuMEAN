@@ -1,0 +1,61 @@
+<div ng-controller="tmdbCtrl" class="row">
+    <div>
+        <input placeholder="Placeholder" id="search_title" type="text" class="validate" ng-model='title' style="margin-left:42%;width:250px;text-align: center;">
+    </div>
+    <a class="btn-floating btn-large waves-effect waves-light blue" style="float: right;top: -80px;left: -40%;" ng-click="pruebaBoton()"><i class="material-icons" ng-click="pruebaBoton()">search</i></a>
+
+    <div ng-repeat="item in datos">
+        <div class="card .col-md-4" style="margin:10px;float:left;max-width:430px;max-weigth:200px">
+            <div class="card-image waves-effect waves-block waves-light" style="width:185px">
+                <span class="btn-floating btn-large waves-effect waves-light blue" style="position:absolute;right:0px"><i class="material-icons right">search</i></span>
+                <img class="activator" src='{{getImgPath(item.poster_path)}}' class="col-md-4" style="width:185px;height:240px;" />
+            </div>
+            <div class="card-content">
+                <!--<span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>-->
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" ng-style="" />
+                    <label class="full" for="star5" title="{{item.vote_average}}" ng-class="item.vote_average>9?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" id="star4half" name="rating" value="4 and a half" />
+                    <label class="half" for="star4half" title="{{item.vote_average}}" ng-class="item.vote_average>8?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" id="star4" name="rating" value="4" />
+                    <label class="full" for="star4" title="{{item.vote_average}}" ng-class="item.vote_average>7?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" name="rating" value="3 and a half" />
+                    <label class="half" for="star3half" title="{{item.vote_average}}" ng-class="item.vote_average>6?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label class="full" for="star3" title="{{item.vote_average}}" ng-class="item.vote_average>5?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" name="rating" value="2 and a half" value="2.5" />
+                    <label class="half" for="star2half" title="{{item.vote_average}}" ng-class="item.vote_average>4?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" id="star2" name="rating" value="2" />
+                    <label class="full" for="star2" title="{{item.vote_average}}" ng-class="item.vote_average>3?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" id="star1half" name="rating" value="1 and a half" />
+                    <label class="half" for="star1half" title="{{item.vote_average}}" ng-class="item.vote_average>2?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" id="star1" name="rating" value="1" />
+                    <label class="full" for="star1" title="{{item.vote_average}}" ng-class="item.vote_average>1?'estrellaamarilla':'estrellagris'"></label>
+
+                    <input type="radio" id="starhalf" name="rating" value="half">
+                    <label class="half" for="starhalf" title="{{item.vote_average}}" ng-class="item.vote_average>0?'estrellaamarilla':'estrellagris'"></label>
+                </div>
+                <a class="btn-floating btn-large waves-effect waves-light green" ng-click="toggleVideoVisible($index)"><i class="material-icons" ng-class="item.videoVisible?'red':'green'">video_library</i></a>
+                <div class="collection"    ng-show="item.videoVisible" style="width:175px">
+                    <a ng-repeat="videoItem in item.trailers" href="https://www.youtube.com/watch?v={{videoItem.key}}" class="collection-item" target="_blank" style="text-align:center;width:175px">{{videoItem.name}}</a>
+                </div>
+            </div>
+
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">{{item.title}} <i class="material-icons right ">close</i></span>
+                <p>{{item.overview}}</p>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

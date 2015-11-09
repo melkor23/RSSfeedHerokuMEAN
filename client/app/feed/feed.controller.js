@@ -102,8 +102,8 @@ angular.module('proyecto1App')
 
         $scope.ok = function () {
             //$modalInstance.close($scope.selected.item);
-            $http.put('/api/feeds/' + items._id, items).success(function (data, status, headers) {
-                console.log('Cambiado Correctamente!!!!!')
+            $http.put('/api/feeds/' + items._id, items).success(function (/*data , status, headers*/) {
+                console.log('Cambiado Correctamente!!!!!');
                 $modalInstance.dismiss('cancel');
             }); // echo the result back
             

@@ -1,5 +1,9 @@
 'use strict';
 
+
+var rss = require("rss");
+
+
 exports.returnConfig = function () {
     var configActual = {};
     configActual.feedAll = 'http://www.divxatope.com/feeds.xml' //pagina de donde se cogen los Feeds para mostrar
@@ -18,7 +22,7 @@ exports.returnConfig = function () {
     /*
     *   Configuración de rss 
     */
-     configActual.rssFeed = {
+     configActual.rssFeed = new rss({
         title: 'Melkor Personal RSS feed',
         description: 'Feed megaxupiguay',
         feed_url: 'http://peaceful-ridge-2845.herokuapp.com/api/rssFeeds',
@@ -34,7 +38,11 @@ exports.returnConfig = function () {
         ttl: '60',
         custom_namespaces: {},
         items: []
-     };
+     });
+    
+    
+    //direccion Busqueda  kat
+    configActual.direccionBusquedaKat='http://kat.cr/json.php?q=';
 
     return configActual;
 }

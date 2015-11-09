@@ -14,11 +14,15 @@
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/angular-notify/dist/angular-notify.css" />
+      <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+      <link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css">
+      <link rel="stylesheet" href="assets/css/materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
@@ -59,7 +63,10 @@
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
-      <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/angular-aria/angular-aria.js"></script>
+      <script src="bower_components/angular-material/angular-material.js"></script>
+      <script src="bower_components/angular-busy/dist/angular-busy.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -90,6 +97,9 @@
           <script src="app/search/search.js"></script>
           <script src="app/shortTitle/shortTitle.filter.js"></script>
           <script src="app/specialCharacters/specialCharacters.filter.js"></script>
+          <script src="app/tmdb/tmdb.directive.js"></script>
+          <script src="app/tmdbSearch/tmdbSearch.controller.js"></script>
+          <script src="app/tmdbSearch/tmdbSearch.js"></script>
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
           <script src="components/modal/modal.service.js"></script>

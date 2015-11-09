@@ -10,6 +10,7 @@ var path = require('path');
 module.exports = function(app) {
 
   // Insert routes below
+  app.use('/api/tmdbs', require('./api/tmdb'));
   app.use('/api/searchs', require('./api/search'));
   app.use('/api/rssFeeds', require('./api/rssFeed'));
   app.use('/api/feeds', require('./api/feed'));

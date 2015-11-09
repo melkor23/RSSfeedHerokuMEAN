@@ -6,8 +6,8 @@ angular.module('proyecto1App')
             var array = [];
 
             itemArray.forEach(function (item) {
-                if (item.fixed == null || item.fixed == false) {
-                    array.push(item)
+                if (item.fixed === null || item.fixed === false) {
+                    array.push(item);
                 }
             });
             return array;
@@ -15,12 +15,12 @@ angular.module('proyecto1App')
     }).filter('tagsInName', function () {
         return function (str) {
             //\u00F1 -> es para la ñ!
-            var strArray = str.match(/\[[\u00F1A-Za-z0-9 ._]*\]/g)
+            var strArray = str.match(/\[[\u00F1A-Za-z0-9 ._]*\]/g);
             var concatStr = '';
             
             console.log('ARRAY-->'+strArray);
             
-            if (strArray != null && strArray.length > 0) {
+            if (strArray !== null && strArray.length > 0) {
                 strArray.forEach(function (item) {
                     if(item.indexOf('Castellano')<=0 && item.indexOf('Cap')<=0)
                     {
@@ -29,7 +29,7 @@ angular.module('proyecto1App')
                     
                 });
                 
-                return concatStr
+                return concatStr;
             } else {
                 strArray.push(str);
                 strArray.forEach(function (item) {
@@ -44,17 +44,17 @@ angular.module('proyecto1App')
     }).filter('tagsInNameCap', function () {
         return function (str) {
             //solo para los capitulos
-            var strArray = str.match(/\[[Cap]+[A-Za-z0-9 ._]*\]/g)
+            var strArray = str.match(/\[[Cap]+[A-Za-z0-9 ._]*\]/g);
             var concatStr = '';
             
             console.log('ARRAY-->'+strArray);
             
-            if (strArray != null && strArray.length > 0) {
+            if (strArray !== null && strArray.length > 0) {
                 strArray.forEach(function (item) {
                     concatStr += item;
                 });
                 
-                return concatStr
+                return concatStr;
             } else {
                 strArray.push(str);
                 strArray.forEach(function (item) {

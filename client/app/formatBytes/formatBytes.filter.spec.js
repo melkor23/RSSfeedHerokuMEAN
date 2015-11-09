@@ -13,6 +13,7 @@ describe('Filter: formatBytes', function () {
 
   it('should return the input prefixed with "formatBytes filter:"', function () {
     var text = 'angularjs';
+      
     expect(formatBytes(text)).toBe('formatBytes filter: ' + text);
   });
 

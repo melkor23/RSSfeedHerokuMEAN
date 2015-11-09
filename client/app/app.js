@@ -8,7 +8,8 @@ angular.module('proyecto1App', [
   'ui.router',
   'ui.bootstrap',
 'infinite-scroll',
-    'cgNotify'
+    'cgNotify',
+    'cgBusy'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

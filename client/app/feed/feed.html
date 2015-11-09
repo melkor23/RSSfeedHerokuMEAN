@@ -12,18 +12,12 @@
                 <li><a href="#" tooltip="{{thing.fixed}}">{{thing.title}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a>
                     <span class="notification-counter">{{thing.quantity}}</span>
                 </li>
-
-                <ul>
-
-
-                </ul>
             </ul>
-
         </div>
         <div class="col-lg-12">
             <h1 class="page-header">Fijos:</h1> {{message}}
             <ul ng-if="thing.fixed==true" class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in feedlist | filter:{fixed:true}" ng-click="open(thing)">
-                <li><a href="#" tooltip="{{thing.fixed}}">{{thing.title}}<button type="button" class="close" ng-click="deleteThing(thing);">&times;</button></a>
+                <li><a href="#" tooltip="{{thing.fixed}}">{{thing.title}}<button type="button" class="close" ng-click="deleteThing(thing);">&times;</button>   
                 </li>
             </ul>
         </div>

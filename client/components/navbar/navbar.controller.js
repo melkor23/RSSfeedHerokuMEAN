@@ -17,14 +17,18 @@ angular.module('proyecto1App')
         {
             'title': 'Filtro',
             'link': '/feed'
-    }/*,
+    },/*,
         {
             'title': 'Listado',
             'link': '/feedlist'
-    }*/,
+    },*/
         {
             'title': 'Busqueda',
             'link': '/search'
+    }, 
+                   {
+            'title': 'Info',
+            'link': '/tmdbSearch'
     }];
 
 

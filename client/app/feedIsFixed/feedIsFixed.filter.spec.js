@@ -10,9 +10,9 @@ describe('Filter: feedIsFixed', function () {
   beforeEach(inject(function ($filter) {
     feedIsFixed = $filter('feedIsFixed');
   }));
-
+/*
   it('should return the input prefixed with "feedIsFixed filter:"', function () {
     var text = 'angularjs';
   });
-
+*/
 });

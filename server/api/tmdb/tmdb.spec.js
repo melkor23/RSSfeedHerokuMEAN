@@ -4,17 +4,16 @@ var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
 
-describe('GET /api/rssFeeds', function() {
+describe('GET /api/tmdbs', function() {
 
-  it('should respond with XML array', function(done) {
+  it('should respond with JSON array', function(done) {
     request(app)
-      .get('/api/rssFeeds')
+      .get('/api/tmdbs')
       .expect(200)
+      .expect('Content-Type', /json/)
       .end(function(err, res) {
-        //console.log('Error-->'+err);
-        //console.log('Res-->'+res);
         if (err) return done(err);
-        //res.body.should.be.instanceof(Array);
+        res.body.should.be.instanceof(Array);
         done();
       });
   });
