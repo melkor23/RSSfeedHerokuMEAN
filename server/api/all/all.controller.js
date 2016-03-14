@@ -15,7 +15,7 @@ exports.index = function (req, res) {
             var xmlObject = null;
 
             parser.parseString(response.body, function (err, result) {
-                return res.status(200).json(result.rss.channel[0].item);
+                return res.status(200).json(result.rss.channel[0]);
 
             });
         }

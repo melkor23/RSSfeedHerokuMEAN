@@ -6,7 +6,7 @@ angular.module('proyecto1App')
             var array = [];
 
             itemArray.forEach(function (item) {
-                if (item.fixed === null || item.fixed === false) {
+                if (item.fixed == null || item.fixed === false) {
                     array.push(item);
                 }
             });
@@ -25,8 +25,7 @@ angular.module('proyecto1App')
                     if(item.indexOf('Castellano')<=0 && item.indexOf('Cap')<=0)
                     {
                         concatStr += item;
-                    }
-                    
+                    } 
                 });
                 
                 return concatStr;

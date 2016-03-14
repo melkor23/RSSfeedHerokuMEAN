@@ -35,6 +35,11 @@ angular.module('proyecto1App')
 
         };
 
+        $scope.ok = function () {
+            console.log('Estoy en el ok!!!!!');
+
+        }
+
 
         $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
@@ -60,7 +65,7 @@ angular.module('proyecto1App')
         };
 
 
-        $scope.open = function (/*thing*/) {
+        $scope.open = function ( /*thing*/ ) {
             console.log('Abrir modal');
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
@@ -96,7 +101,8 @@ angular.module('proyecto1App')
                 'fixed': true,
                 'description': '',
                 'author': 'Admin',
-                'pubDate': ''            };
+                'pubDate': ''
+            };
 
             console.log('ItemNuevo--->' + nuevoObjeto);
             var req = {
@@ -108,7 +114,7 @@ angular.module('proyecto1App')
                 }
             };
 
-            $http(req).success(function (/*data*/) {
+            $http(req).success(function ( /*data*/ ) {
                 notify({
                     message: nuevoObjeto.title + ' añadido correctamente!!!!',
                     classes: 'alert-success'
@@ -120,12 +126,40 @@ angular.module('proyecto1App')
 
 
 
-       /* $scope.alerts = [];
-        $scope.closeAlert = function (index) {
-            $scope.alerts = alertasService.removeAlert(index);
-        };*/
+        /* $scope.alerts = [];
+         $scope.closeAlert = function (index) {
+             $scope.alerts = alertasService.removeAlert(index);
+         };*/
 
-    }).controller('ModalAddMagnetCtrl', function ($scope, $http/*,$modalInstance, items*/) {
+    }).controller('ModalAddMagnetCtrl', function ($scope, $http, $modalInstance, items) {
+        console.log('SearchoWord->' + items);
+        $scope.seleccionActual = items;
+        $scope.UrlMagnet = '';
+        $scope.FilterName = '';
 
-      
+        //$scope.items = items;
+        $scope.selected = {
+            item: items
+                //item: $scope.items[0]
+        };
+
+        $scope.ok = function () {
+            //$modalInstance.close($scope.selected.item);
+            console.log($scope.UrlMagnet);
+            $http.post('/api/feeds/', {
+                link: $scope.UrlMagnet,
+                title: $scope.FilterName,
+                fixed: true,
+                description: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Magnet_Ales.jpg/150px-Magnet_Ales.jpg'
+            }).success(function (data, status, headers) {
+                console.log('Cambiado Correctamente!!!!!')
+                $modalInstance.dismiss('cancel');
+            });
+        };
+
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
     });
