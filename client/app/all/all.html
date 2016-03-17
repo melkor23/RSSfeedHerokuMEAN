@@ -14,30 +14,20 @@
         </div>
     </div>
     <h3 class="text-center alert alert-info">Total items: {{listAll.length}}  </h3>
-
-
-
-
-    <div infinite-scroll='loadMore()' infinite-scroll-distance=2>
-        <div class="container">
-            <div cg-busy="{promise:myPromise,message:'Loading Your Data',templateUrl:'assets/images/loading.html'}"></div>
-
-            <div class="col-md-2" ng-repeat="item in listInfiniteScroll track by $index| orderBy: orderByDate:true">
-                <!-- Para cambios de fecha en los elementos cambiamos el background dedl elemento-->
-                <label class="black">{{item.pubDate[0]}}</label>
-                <div class="panel panel-default shadow container paddingBoxItem" ng-class="{'dayChange': item.pubDate[0]!=listAll[$index + 1].pubDate[0]}">
-                    <input id='tituloSeleccion' type=hidden value="{{item.title[0]}}" />
-
-                    <img title="{{item.title[0]}}" src="{{item.description[0]}}" ng-click="open(item)" />
-                    <div class="container addButton" ng-show="isLoggedIn()">
-                        <button type="button" class="btn btn-primary container" ng-click="addThing(item);">Añadir</button>
-                    </div>
+    
+    <div class="container">
+        <div cg-busy="{promise:myPromise,message:'Loading Your Data',templateUrl:'assets/images/loading.html'}"></div>
+        <div class="col-md-2" ng-repeat="item in listAll | orderBy: orderByDate:true">
+            <!-- Para cambios de fecha en los elementos cambiamos el background dedl elemento-->
+            <div class="panel panel-default shadow container paddingBoxItem" ng-class="{'dayChange': item.pubDate[0]!=listAll[$index + 1].pubDate[0]}">
+                <input id='tituloSeleccion' type=hidden value="{{item.title[0]}}" />
+                <img title="{{item.title[0]}}" src="{{item.description[0]}}" ng-click="open(item)" />
+                <div class="container addButton" ng-show="isLoggedIn()">
+                    <button type="button" class="btn btn-primary container" ng-click="addThing(item);">Añadir</button>
                 </div>
             </div>
         </div>
     </div>
-
-
     <div ng-controller="ModalDemoCtrl">
         <script type="text/ng-template" id="myModalContent.html">
             <div class="modal-header">
